@@ -1,0 +1,63 @@
+﻿<br />
+<tr>
+    <td> Populating With ViewBag Data </td>
+    <td>
+        @Html.DropDownList("MySkills", (IEnumerable
+       <SelectListItem>)ViewBag.MySkills)
+    </td>
+</tr>
+
+<tr>
+    <td> Populating With ViewData Data </td>
+    <td>
+        @Html.DropDownList("MySkills", (IEnumerable
+       <SelectListItem>)ViewData["MySkills"])
+    </td>
+</tr>
+
+<tr>
+    <td> Populating With TempData Data </td>
+    <td>
+        @Html.DropDownList("MySkills", (IEnumerable
+       <SelectListItem>)TempData["MySkills"])
+    </td>
+</tr>
+
+<tr>
+    <td> Populating From Enum </td>
+    <td> @Html.DropDownList("MySkills", new SelectList(ViewBag.MySkillEnum, "Value", "Text")) </td>
+</tr>
+
+<tr>
+    <td> Populating With Database and EF </td>
+    <td>
+        @Html.DropDownList("MySkills", (IEnumerable
+       <SelectListItem>)ViewData["DBMySkills"])
+    </td>
+</tr>
+
+<tr>
+    <td> Populating With Json Data </td>
+    <td>
+        @Html.DropDownList("FromJson", new SelectList(Enumerable.Empty
+       <SelectListItem>()))
+    </td>
+</tr>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.ajax({
+            url: "ReturnJSONDataToAJax",
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            datatype: JSON,
+            success: function(result) {
+                $(result).each(function() {
+                    $("#FromJson").append($("<option></option>").val(this.ID).html(this.Name));
+                });
+            },
+            error: function(data) {}
+        });
+    });
+</script>
